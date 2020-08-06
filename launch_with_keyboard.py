@@ -72,7 +72,7 @@ def set_velocity_body(vehicle, vx, vy, vz):
 #-- Key event function
 
 def key():
-        for i in range(0,10):
+        while True:
             #c = readchar.readchar()
             key = readchar.readkey()
             if key =='\x1b[A':
@@ -90,6 +90,12 @@ def key():
             elif key == 'r':
                 print("r pressed >> Set the vehicle to RTL")
                 vehicle.mode = VehicleMode("RTL")
+            elif key == '\x03':
+                print ("Ctrl+c pressed, will work only if disarmed")
+                if vehicle.armed == True:
+                    print("Vehicle is armed, cannot exit")
+                else:
+                    break
             else:
                  print("Key: ", key)
 

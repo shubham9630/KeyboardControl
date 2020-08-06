@@ -6,14 +6,12 @@ Simple script for take off and control with arrow keys
 import time
 from dronekit import connect, VehicleMode, LocationGlobalRelative, Command, LocationGlobal
 from pymavlink import mavutil
-
-#- Importing Tkinter: sudo apt-get install python-tk
-import tkinter as tk
+import readchar
 
 
 #-- Connect to the vehicle
 print('Connecting...')
-vehicle = connect('udp:192.168.43.38:14551')
+vehicle = connect('udp:192.168.43.14:14550') #-- UDP of Raspberry Pi
 
 
 class _Getch:
@@ -51,7 +49,7 @@ class _GetchWindows:
         return msvcrt.getch()
     
 #-- Setup the commanded flying speed
-gnd_speed = 5 # [m/s]
+gnd_speed = 1 # [m/s]
 
 #-- Define arm and takeoff
 def arm_and_takeoff(altitude):
@@ -104,45 +102,30 @@ def set_velocity_body(vehicle, vx, vy, vz):
     vehicle.flush()
 
     
-def get():
-        getch = _Getch()
-        while(1):
-            k=getch()
-            #print(k)
-            if k!='':break
-        if k =='\x1b[A':
-                k="Up"
-        elif k=='\x1b[B':
-                k="Down"
-        elif k=='\x1b[C':
-                k="Right"
-        elif k=='\x1b[D':
-                k="Left"
-        else:
-             print(k)
-                
-                
-def main():
-        for i in range(0,10):
-            get()
-
 
 #-- Key event function
-def key(event):
-    if event.char == event.keysym: #-- standard keys
-        if event.keysym == 'r':
-            print("r pressed >> Set the vehicle to RTL")
-            vehicle.mode = VehicleMode("RTL")
 
-    else: #-- non standard keys
-        if event.keysym == 'Up':
-            set_velocity_body(vehicle, gnd_speed, 0, 0)
-        elif event.keysym == 'Down':
-            set_velocity_body(vehicle,-gnd_speed, 0, 0)
-        elif event.keysym == 'Left':
-            set_velocity_body(vehicle, 0, -gnd_speed, 0)
-        elif event.keysym == 'Right':
-            set_velocity_body(vehicle, 0, gnd_speed, 0)
+def key():
+        for i in range(0,10):
+            #c = readchar.readchar()
+            key = readchar.readkey()
+            if key =='\x1b[A':
+                set_velocity_body(vehicle, gnd_speed, 0, 0)
+                print("Key: ","Up arrow key pressed, Moving Forward")
+            elif key =='\x1b[B':
+                set_velocity_body(vehicle, -gnd_speed, 0,0)
+                print("Key: ","Down arrow key pressed, Moving Backward")
+            elif key=='\x1b[C':
+                set_velocity_body(vehicle, 0, gnd_speed, 0)
+                print("Key: ","Right arrow key pressed, Moving Right")
+            elif key =='\x1b[D':
+                set_velocity_body(vehicle, 0, -gnd_speed, 0)
+                print("Key: ","Left arrow key pressed, Moving Left")
+            elif key == 'r':
+                print("r pressed >> Set the vehicle to RTL")
+                vehicle.mode = VehicleMode("RTL")
+            else:
+                 print("Key: ", key)
 
 
 #---- MAIN FUNCTION
@@ -150,8 +133,8 @@ def key(event):
 #arm_and_takeoff(10)
 
 
-
-
+if __name__='__main__':
+    key()
 
 
 

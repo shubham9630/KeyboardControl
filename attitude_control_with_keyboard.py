@@ -54,9 +54,9 @@ def arm_and_takeoff(altitude):
    vehicle.mode = VehicleMode("GUIDED")
    vehicle.armed = True
 
-   while not vehicle.armed:
-       print(" Waiting for arming...")
-       time.sleep(1)
+   #while not vehicle.armed:
+    #   print(" Waiting for arming...")
+     #  time.sleep(1)
 
    print("Taking Off")
    vehicle.simple_takeoff(altitude)

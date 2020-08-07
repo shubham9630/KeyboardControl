@@ -222,7 +222,7 @@ def key():
     elif key == 'r':
         print("r pressed >> Set the vehicle to RTL")
         vehicle.mode = VehicleMode("RTL")
-    elif key == 'l:
+    elif key == 'l':
         print("l pressed >> Set the vehicle to Land")
         vehicle.mode = VehicleMode("LAND")
 
@@ -273,9 +273,6 @@ def key():
      elif key =='\x1b[D':
          set_velocity_body(vehicle, 0, -gnd_speed, 0)
          print("Key: ","Left arrow key pressed, Moving Left")
-     elif key == 'r':
-         print("r pressed >> Set the vehicle to RTL")
-         vehicle.mode = VehicleMode("RTL")
      elif key == '\x03':
          print ("Ctrl+c pressed, will work only if disarmed")
          if vehicle.armed == True:

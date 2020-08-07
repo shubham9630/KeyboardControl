@@ -261,26 +261,26 @@ def key():
         set_attitude(yaw_rate=-20, use_yaw_rate=True, duration = 1)
         print("YawRate - -20deg/s", vehicle.attitude.yaw)
         set_velocity_body(vehicle, 0, 0, 0)
-     elif key =='\x1b[A':
-         set_velocity_body(vehicle, gnd_speed, 0, 0)
-         print("Key: ","Up arrow key pressed, Moving Forward")
+    elif key =='\x1b[A':
+        set_velocity_body(vehicle, gnd_speed, 0, 0)
+        print("Key: ","Up arrow key pressed, Moving Forward")
     elif key =='\x1b[B':
-         set_velocity_body(vehicle, -gnd_speed, 0,0)
-         print("Key: ","Down arrow key pressed, Moving Backward")
-     elif key=='\x1b[C':
-         set_velocity_body(vehicle, 0, gnd_speed, 0)
-         print("Key: ","Right arrow key pressed, Moving Right")
-     elif key =='\x1b[D':
-         set_velocity_body(vehicle, 0, -gnd_speed, 0)
-         print("Key: ","Left arrow key pressed, Moving Left")
-     elif key == '\x03':
-         print ("Ctrl+c pressed, will work only if disarmed")
-         if vehicle.armed == True:
-            print("Vehicle is armed, cannot exit")
-         else:
-            break
-      else:
-             print("Key: ", key)
+        set_velocity_body(vehicle, -gnd_speed, 0,0)
+        print("Key: ","Down arrow key pressed, Moving Backward")
+    elif key=='\x1b[C':
+        set_velocity_body(vehicle, 0, gnd_speed, 0)
+        print("Key: ","Right arrow key pressed, Moving Right")
+    elif key =='\x1b[D':
+        set_velocity_body(vehicle, 0, -gnd_speed, 0)
+        print("Key: ","Left arrow key pressed, Moving Left")
+    elif key == '\x03':
+        print ("Ctrl+c pressed, will work only if disarmed")
+        if vehicle.armed == True:
+           print("Vehicle is armed, cannot exit")
+        else:
+           break
+    else:
+        print("Key: ", key)
 
 
 

@@ -36,7 +36,7 @@ import readchar
 
 #-- Connect to the vehicle
 print('Connecting...')
-vehicle = connect('udp:127.0.0.1:14551')  #--- Rpi
+vehicle = connect('udp:192.168.43.14:14550')  #--- Rpi
 
 #-- Setup the commanded flying speed
 gnd_speed = 1 # [m/s]

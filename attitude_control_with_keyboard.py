@@ -216,74 +216,74 @@ def key():
   while True:
     key = readchar.readkey()
         # Taking off and Landing
-        if event.keysym == 't':
-            print("Taking off to 5 meters")
-            arm_and_takeoff(7)
-        elif event.keysym == 'r':
-            print("r pressed >> Set the vehicle to RTL")
-            vehicle.mode = VehicleMode("RTL")
-        elif event.keysym == 'l:
-            print("l pressed >> Set the vehicle to Land")
-            vehicle.mode = VehicleMode("LAND")
+    if key == 't':
+        print("Taking off to 5 meters")
+        arm_and_takeoff(7)
+    elif key == 'r':
+        print("r pressed >> Set the vehicle to RTL")
+        vehicle.mode = VehicleMode("RTL")
+    elif key == 'l:
+        print("l pressed >> Set the vehicle to Land")
+        vehicle.mode = VehicleMode("LAND")
 
-        #Increasing/Decreasing Altitude
-        elif event.keysym == 'u':
-            point1 = LocationGlobalRelative(0, 0, 3)
-            vehicle.simple_goto(point1)
-        elif event.keysym == 'n':
-            point1 = LocationGlobalRelative(0, 0, -3)
-            vehicle.simple_goto(point1)
+    #Increasing/Decreasing Altitude
+    elif key == 'u':
+        point1 = LocationGlobalRelative(0, 0, 3)
+        vehicle.simple_goto(point1)
+    elif key == 'n':
+        point1 = LocationGlobalRelative(0, 0, -3)
+        vehicle.simple_goto(point1)
 
-        #Roll, Pitch, Yaw command
-        elif event.keysym == 'd':
-            set_attitude(roll_angle=10, duration = 3)
-            print(" Attitude 10 deg Roll: %s", vehicle.attitude.roll)
-        elif event.keysym == 'a':
-            set_attitude(roll_angle=-10, duration = 3)
-            print(" Attitude -10 deg Roll: %s", vehicle.attitude.roll)
-        elif event.keysym == 'w':
-            set_attitude(pitch_angle=10, duration = 3)
-            print(" Attitude 10 deg pitch: %s", vehicle.attitude.pitch)
-        elif event.keysym == 'z':
-            set_attitude(pitch_angle=-10, duration = 3)
-            print(" Attitude -pitch: %s", vehicle.attitude.pitch)
-        elif event.keysym == 'k':
-            condition_yaw(90,1, relative=True)
-        elif event.keysym == 'j':
-            condition_yaw(90,-1, relative=True)
+    #Roll, Pitch, Yaw command
+    elif key == 'd':
+        set_attitude(roll_angle=10, duration = 3)
+        print(" Attitude 10 deg Roll: %s", vehicle.attitude.roll)
+    elif key == 'a':
+        set_attitude(roll_angle=-10, duration = 3)
+        print(" Attitude -10 deg Roll: %s", vehicle.attitude.roll)
+    elif key == 'w':
+        set_attitude(pitch_angle=10, duration = 3)
+        print(" Attitude 10 deg pitch: %s", vehicle.attitude.pitch)
+    elif key == 'z':
+        set_attitude(pitch_angle=-10, duration = 3)
+        print(" Attitude -pitch: %s", vehicle.attitude.pitch)
+    elif key == 'k':
+        condition_yaw(90,1, relative=True)
+    elif key == 'j':
+        condition_yaw(90,-1, relative=True)
 
-        #Yaw rate command
-        elif event.keysym == 'o':
-            set_attitude(yaw_rate= 20, use_yaw_rate=True, duration = 1)
-            set_velocity_body(vehicle, 0, 0, 0)
-            print("YawRate - 20deg/s: ", vehicle.attitude.yaw)
-        elif event.keysym == 'i':
-            set_attitude(yaw_rate=-20, use_yaw_rate=True, duration = 1)
-            print("YawRate - -20deg/s", vehicle.attitude.yaw)
-            set_velocity_body(vehicle, 0, 0, 0)
-         elif key =='\x1b[A':
-             set_velocity_body(vehicle, gnd_speed, 0, 0)
-             print("Key: ","Up arrow key pressed, Moving Forward")
-        elif key =='\x1b[B':
-             set_velocity_body(vehicle, -gnd_speed, 0,0)
-             print("Key: ","Down arrow key pressed, Moving Backward")
-         elif key=='\x1b[C':
-             set_velocity_body(vehicle, 0, gnd_speed, 0)
-             print("Key: ","Right arrow key pressed, Moving Right")
-         elif key =='\x1b[D':
-             set_velocity_body(vehicle, 0, -gnd_speed, 0)
-             print("Key: ","Left arrow key pressed, Moving Left")
-         elif key == 'r':
-             print("r pressed >> Set the vehicle to RTL")
-             vehicle.mode = VehicleMode("RTL")
-         elif key == '\x03':
-             print ("Ctrl+c pressed, will work only if disarmed")
-             if vehicle.armed == True:
-                print("Vehicle is armed, cannot exit")
-             else:
-                break
-          else:
-                 print("Key: ", key)
+    #Yaw rate command
+    elif key == 'o':
+        set_attitude(yaw_rate= 20, use_yaw_rate=True, duration = 1)
+        set_velocity_body(vehicle, 0, 0, 0)
+        print("YawRate - 20deg/s: ", vehicle.attitude.yaw)
+    elif key == 'i':
+        set_attitude(yaw_rate=-20, use_yaw_rate=True, duration = 1)
+        print("YawRate - -20deg/s", vehicle.attitude.yaw)
+        set_velocity_body(vehicle, 0, 0, 0)
+     elif key =='\x1b[A':
+         set_velocity_body(vehicle, gnd_speed, 0, 0)
+         print("Key: ","Up arrow key pressed, Moving Forward")
+    elif key =='\x1b[B':
+         set_velocity_body(vehicle, -gnd_speed, 0,0)
+         print("Key: ","Down arrow key pressed, Moving Backward")
+     elif key=='\x1b[C':
+         set_velocity_body(vehicle, 0, gnd_speed, 0)
+         print("Key: ","Right arrow key pressed, Moving Right")
+     elif key =='\x1b[D':
+         set_velocity_body(vehicle, 0, -gnd_speed, 0)
+         print("Key: ","Left arrow key pressed, Moving Left")
+     elif key == 'r':
+         print("r pressed >> Set the vehicle to RTL")
+         vehicle.mode = VehicleMode("RTL")
+     elif key == '\x03':
+         print ("Ctrl+c pressed, will work only if disarmed")
+         if vehicle.armed == True:
+            print("Vehicle is armed, cannot exit")
+         else:
+            break
+      else:
+             print("Key: ", key)
 
 
 

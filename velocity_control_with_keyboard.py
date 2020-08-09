@@ -12,6 +12,7 @@ import readchar
 #-- Connect to the vehicle
 print('Connecting...')
 vehicle = connect('udp:192.168.43.14:14550') #-- UDP of Raspberry Pi
+print("Connected. Control with keyboard now")
 
     
 #-- Setup the commanded flying speed

@@ -37,6 +37,7 @@ import readchar
 #-- Connect to the vehicle
 print('Connecting...')
 vehicle = connect('udp:192.168.43.14:14550')  #--- Rpi
+print("Connected. Control with keyboard now")
 
 #-- Setup the commanded flying speed
 gnd_speed = 1 # [m/s]
@@ -289,7 +290,7 @@ def key():
 
 #---- MAIN FUNCTION
 #- Takeoff
-arm_and_takeoff(10)
+#arm_and_takeoff(10)
 
 
 if __name__=='__main__':

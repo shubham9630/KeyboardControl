@@ -36,7 +36,7 @@ import readchar
 
 #-- Connect to the vehicle
 print('Connecting...')
-vehicle = connect('udp:192.168.43.14:14550')  #--- Rpi
+vehicle = connect('udp:127.0.0.1:14551')  #--- Rpi
 print("Connected. Control with keyboard now")
 
 #-- Setup the commanded flying speed
@@ -52,7 +52,7 @@ def arm_and_takeoff(altitude):
  #     time.sleep(1)
 
    print("Arming motors")
-   vehicle.mode = VehicleMode("GUIDED")
+   vehicle.mode = VehicleMode("GUIDED_NOGPS")
    vehicle.armed = True
 
    #while not vehicle.armed:
@@ -60,16 +60,17 @@ def arm_and_takeoff(altitude):
      #  time.sleep(1)
 
    print("Taking Off")
-   vehicle.simple_takeoff(altitude)
-
+   #vehicle.simple_takeoff(altitude)
+   thrust=0.7
    while True:
-      v_alt = vehicle.location.global_relative_frame.alt
-      print(" Altitude: %f  Desired: %f" %
-            (v_alt, altitude))
-      if v_alt >= altitude - 1.0:
-          print("Target altitude reached")
-          break
-      time.sleep(1)
+		current_altitude = vehicle.location.global_relative_frame.alt
+		if current_altitude >= altitude*0.95:
+			break
+		elif current_altitude >= altitude*0.6:
+			thrust = 0.6
+		set_attitude(thrust = thrust)
+		time.sleep(0.2)
+
 
  #-- Define the function for sending mavlink velocity command in body frame
 def set_velocity_body(vehicle, vx, vy, vz):
@@ -237,16 +238,17 @@ def key():
 
     #Roll, Pitch, Yaw command
     elif key == 'd':
-        set_attitude(roll_angle=10, duration = 3)
-        print(" Attitude 10 deg Roll: %s", vehicle.attitude.roll)
+        set_attitude(roll_angle=15, duration = 3)
+        print(" Attitude 15 deg Roll:" , vehicle.attitude.roll)
+
     elif key == 'a':
-        set_attitude(roll_angle=-10, duration = 3)
-        print(" Attitude -10 deg Roll: %s", vehicle.attitude.roll)
+        set_attitude(roll_angle=-15, duration = 3)
+        print(" Attitude -15 deg Roll: ", vehicle.attitude.roll)
     elif key == 'w':
-        set_attitude(pitch_angle=10, duration = 3)
+        set_attitude(pitch_angle=10, duration = 0.01)
         print(" Attitude 10 deg pitch: %s", vehicle.attitude.pitch)
     elif key == 'z':
-        set_attitude(pitch_angle=-10, duration = 3)
+        set_attitude(pitch_angle=-10, duration = 0.01)
         print(" Attitude -pitch: %s", vehicle.attitude.pitch)
     elif key == 'k':
         condition_yaw(90,1, relative=True)
@@ -290,7 +292,7 @@ def key():
 
 #---- MAIN FUNCTION
 #- Takeoff
-#arm_and_takeoff(10)
+arm_and_takeoff(5)
 
 
 if __name__=='__main__':
